@@ -10,3 +10,14 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+@import '~bootstrap/css/bootstrap.css';
+
+/* .mySuperstyle{
+	background: "black";
+   	border: "border-radius";
+    padding:"$spacer * .25";
+    display: "block";
+    width:"auto";
+    color:"white";
+	font-size: "10px";
+   }; */
