@@ -35,6 +35,18 @@ function Contador(props){
                 </div>
          </div>)
 }
+function Bonus(){
+    return(
+        <div className="row w-25 mx-auto justify-content-center">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-secondary">Catras</button>
+                <button type="button" class="btn btn-secondary">Reini</button>
+                <button type="button" class="btn btn-secondary">Pause</button>
+                <button type="button" class="btn btn-secondary">Stop</button>
+            </div>
+        </div>
+    )
+}
 
 
 Contador.propTypes= {
@@ -51,6 +63,7 @@ setInterval(function(){
     const uno =Math.floor(timer/1)
     timer++;
 //render your react application
-ReactDOM.render(<Contador digitoUno={uno} digitoDos={dos} digitoTres={tres} digitoCuatro={cuatro} />, document.querySelector("#app")
+ReactDOM.render(<div>
+                <Contador digitoUno={uno} digitoDos={dos} digitoTres={tres} digitoCuatro={cuatro} />,<Bonus/></div>, document.querySelector("#app")
 );
 },1000);
