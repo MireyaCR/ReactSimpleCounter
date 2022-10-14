@@ -11,12 +11,13 @@ const mySuperstyle={
 	background: "black",
    	border:"solid 1px white",
     'border-radius':"10px",
-    margin:"8px",
-    padding:"10px",
-    display: "block",
-    color:"white",	
-    'font-size':"36px",
+    margin:"40px",
+    padding:"8px",
     'text-aling':"center",
+    display:"flex",
+    'justify-content':"center",
+    color:"white",	
+    'font-size':"60px",      
    };
 
 //import your own components
@@ -24,9 +25,9 @@ const mySuperstyle={
 
 function Contador(props){
     return (
-        <div className="contairer w-50 mx-auto mt-1 bg-dark">
-                <div className="row p-3 justify-content-evenly">
-                    <div className ="col" style={mySuperstyle}><i className="far fa-clock"></i></div>
+        <div className="contairer w-50 mx-auto mt-3 bg-dark">
+                <div className="row justify-content-evenly">
+                    <div className ="col flex-column align-items-center" style={mySuperstyle}><i className="far fa-clock" ></i></div>
                     <div className="col" style={mySuperstyle}>{props.digitoCuatro % 10}</div>
                     <div className="col" style={mySuperstyle}>{props.digitoTres % 10}</div>
                     <div className="col"style={mySuperstyle}>{props.digitoDos % 10}</div>
@@ -34,6 +35,7 @@ function Contador(props){
                 </div>
          </div>)
 }
+
 
 Contador.propTypes= {
     digitoCuatro: propTypes.number,
