@@ -2,6 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import propTypes from "prop-types";
+import { resetWarningCache } from "prop-types/checkPropTypes";
 
 // import 'bootstrap';
 
@@ -39,10 +40,10 @@ function Bonus(){
     return(
         <div className="row w-25 mx-auto justify-content-center">
             <div class="btn-group mr-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-secondary">Catras</button>
-                <button type="button" class="btn btn-secondary">Reini</button>
-                <button type="button" class="btn btn-secondary">Pause</button>
-                <button type="button" class="btn btn-secondary">Stop</button>
+                <button type="button" className="btn btn-secondary" onClick={()=>cuentaatrasFuntion()}>Countdown999</button>
+                <button type="button" className="btn btn-secondary" onClick={()=>resetFunction()}>Restart</button>
+                <button type="button" className="btn btn-secondary" onClick={()=>continueFunction()}>Continue</button>
+                <button type="button" className="btn btn-secondary" onClick={()=>stopFunction()}>Stop</button>
             </div>
         </div>
     )
@@ -55,15 +56,47 @@ Contador.propTypes= {
     digitoDos: propTypes.number,
     digitoUno: propTypes.number
 };
-let timer=0;
-setInterval(function(){
-    const cuatro =Math.floor(timer/1000)
-    const tres =Math.floor(timer/100)
-    const dos =Math.floor(timer/10)
-    const uno =Math.floor(timer/1)
-    timer++;
-//render your react application
-ReactDOM.render(<div>
-                <Contador digitoUno={uno} digitoDos={dos} digitoTres={tres} digitoCuatro={cuatro} />,<Bonus/></div>, document.querySelector("#app")
-);
-},1000);
+
+const intervalFunction=function(atras){
+        const cuatro =Math.floor(timer/1000);
+        const tres =Math.floor(timer/100);
+        const dos =Math.floor(timer/10);
+        const uno =Math.floor(timer/1);
+        (atras)?timer--:timer++;
+    //render your react application
+    ReactDOM.render(<div>
+                    <Contador digitoUno={uno} digitoDos={dos} digitoTres={tres} digitoCuatro={cuatro} />,<Bonus/></div>, document.querySelector("#app")
+    );
+}
+
+const resetFunction=function(){
+    atras=false;
+    clearInterval(interval);
+    timer=0;
+    interval=setInterval(()=>intervalFunction(false),1000);
+}
+
+const continueFunction=function(){
+    if(stop){
+        stop=false;
+        interval=setInterval(()=>intervalFunction(atras),1000)
+    }
+}
+
+const stopFunction=function() {
+    stop=true;
+    clearInterval(interval); 
+}
+
+const cuentaatrasFuntion=function(){
+    clearInterval(interval);
+    timer=999;
+    atras=true;
+    interval=setInterval(()=>intervalFunction(atras),1000);
+}
+
+let timer;
+let atras;
+let interval;
+let stop;
+resetFunction();
