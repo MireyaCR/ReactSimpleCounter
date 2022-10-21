@@ -14,7 +14,7 @@ const mySuperstyle={
     'border-radius':"10px",
     margin:"40px",
     padding:"8px",
-    'text-aling':"center",
+    'text-align':"center",
     display:"flex",
     'justify-content':"center",
     color:"white",	
@@ -26,7 +26,7 @@ const mySuperstyle={
 
 function Contador(props){
     return (
-        <div className="contairer w-50 mx-auto mt-3 bg-dark">
+        <div className="contairer-fluid w-50 mx-auto mt-3 bg-dark">
                 <div className="row justify-content-evenly">
                     <div className ="col flex-column align-items-center" style={mySuperstyle}><i className="far fa-clock" ></i></div>
                     <div className="col" style={mySuperstyle}>{props.digitoCuatro % 10}</div>
@@ -39,11 +39,18 @@ function Contador(props){
 function Bonus(){
     return(
         <div className="row w-25 mx-auto justify-content-center">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-                <button type="button" className="btn btn-secondary" onClick={()=>cuentaatrasFuntion()}>Countdown999</button>
-                <button type="button" className="btn btn-secondary" onClick={()=>resetFunction()}>Restart</button>
-                <button type="button" className="btn btn-secondary" onClick={()=>continueFunction()}>Continue</button>
-                <button type="button" className="btn btn-secondary" onClick={()=>stopFunction()}>Stop</button>
+            <div className="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" className="btn btn-secondary" onClick={()=>alarmFunction()}><i className="fa fa-bell"></i></button> 
+                <button type="button" className="btn btn-secondary" onClick={()=>resetFunction()}><i className="fas fa-clock"></i></button>
+                <button type="button" className="btn btn-secondary" disabled={!stop} onClick={()=>continueFunction()}><i className="fas fa-play"></i></button>
+                <button type="button" className="btn btn-secondary" disabled={stop} onClick={()=>stopFunction()}><i className="fa fa-stop"></i></button>
+                <input className="form-control sm mr-2"type="text" placeholder='Number?' onKeyDown={(event)=>{
+				if (event.key === 'Enter' && event.target.value<9999 && event.target.value>0) {
+					cuentaatrasFuntion(event.target.value)
+				}
+			}} onChange={(event)=>{
+                contador=event.target.value;
+}}/>
             </div>
         </div>
     )
@@ -63,14 +70,19 @@ const intervalFunction=function(atras){
         const dos =Math.floor(timer/10);
         const uno =Math.floor(timer/1);
         (atras)?timer--:timer++;
+       
     //render your react application
     ReactDOM.render(<div>
-                    <Contador digitoUno={uno} digitoDos={dos} digitoTres={tres} digitoCuatro={cuatro} />,<Bonus/></div>, document.querySelector("#app")
+                    <Contador digitoUno={uno} digitoDos={dos} digitoTres={tres} digitoCuatro={cuatro} />,<Bonus/><div style={{display:alarm==timer?"block":"none"}}>fin</div></div>, document.querySelector("#app")
     );
+    if(timer===-1){
+        clearInterval(interval);
+    }
 }
 
 const resetFunction=function(){
     atras=false;
+    stop=false;
     clearInterval(interval);
     timer=0;
     interval=setInterval(()=>intervalFunction(false),1000);
@@ -83,20 +95,28 @@ const continueFunction=function(){
     }
 }
 
-const stopFunction=function() {
+const stopFunction=function(){
     stop=true;
     clearInterval(interval); 
+    intervalFunction(atras);
 }
 
-const cuentaatrasFuntion=function(){
+const cuentaatrasFuntion=function(value){
     clearInterval(interval);
-    timer=999;
+    timer=value;
     atras=true;
     interval=setInterval(()=>intervalFunction(atras),1000);
 }
 
+const alarmFunction=function(){
+    alarm=contador;    
+    resetFunction();
+}
+
+let contador;
+let alarm;
 let timer;
 let atras;
 let interval;
-let stop;
+let stop=false;
 resetFunction();
