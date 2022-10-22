@@ -7,7 +7,7 @@ import { resetWarningCache } from "prop-types/checkPropTypes";
 // import 'bootstrap';
 
 // include your styles into the webpack bundle
-// import  "../styles/index.css";
+import  "../styles/index.css";
 const mySuperstyle={
 	background: "black",
    	border:"solid 1px white",
@@ -45,17 +45,21 @@ function Bonus(){
                 <button type="button" className="btn btn-secondary" disabled={!stop} onClick={()=>continueFunction()}><i className="fas fa-play"></i></button>
                 <button type="button" className="btn btn-secondary" disabled={stop} onClick={()=>stopFunction()}><i className="fa fa-stop"></i></button>
                 <input className="form-control sm mr-2"type="text" placeholder='Number?' onKeyDown={(event)=>{
-				if (event.key === 'Enter' && event.target.value<9999 && event.target.value>0) {
-					cuentaatrasFuntion(event.target.value)
-				}
-			}} onChange={(event)=>{
-                contador=event.target.value;
-}}/>
+				    if (event.key === 'Enter' && event.target.value<9999 && event.target.value>0) {
+					    cuentaatrasFuntion(event.target.value)
+				    }
+			    }} onChange={(event)=>{
+                         contador=event.target.value;
+                }}/>
             </div>
         </div>
     )
 }
-
+function Alarm(props) {
+    return(
+         <div className="alert alert-danger" style={{visibility: (props.show?"visible":"hidden")}} role="alert">Tiempo!!!</div>
+      )
+}
 
 Contador.propTypes= {
     digitoCuatro: propTypes.number,
@@ -68,13 +72,12 @@ const intervalFunction=function(atras){
         const cuatro =Math.floor(timer/1000);
         const tres =Math.floor(timer/100);
         const dos =Math.floor(timer/10);
-        const uno =Math.floor(timer/1);
-        (atras)?timer--:timer++;
-       
+        const uno =Math.floor(timer/1); 
     //render your react application
     ReactDOM.render(<div>
-                    <Contador digitoUno={uno} digitoDos={dos} digitoTres={tres} digitoCuatro={cuatro} />,<Bonus/><div style={{display:alarm==timer?"block":"none"}}>fin</div></div>, document.querySelector("#app")
+                    <Contador digitoUno={uno} digitoDos={dos} digitoTres={tres} digitoCuatro={cuatro} /><Bonus/><Alarm show={alarm===timer}/></div>,document.querySelector("#app")
     );
+    (atras)?timer--:timer++;
     if(timer===-1){
         clearInterval(interval);
     }
@@ -109,7 +112,7 @@ const cuentaatrasFuntion=function(value){
 }
 
 const alarmFunction=function(){
-    alarm=contador;    
+    alarm=parseInt(contador);    
     resetFunction();
 }
 
