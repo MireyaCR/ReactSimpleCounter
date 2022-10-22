@@ -57,7 +57,7 @@ function Bonus(){
 }
 function Alarm(props) {
     return(
-         <div className="alert alert-danger" style={{visibility: (props.show?"visible":"hidden")}} role="alert">Tiempo!!!</div>
+         <div className="alert alert-danger w-50 text-center mx-auto" style={{visibility: (props.show?"visible":"hidden")}} role="alert">Tiempo!!!</div>
       )
 }
 
