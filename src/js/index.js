@@ -23,6 +23,12 @@ const mySuperstyle={
 
 //import your own components
 // import Home from "./component/home.jsx";
+let contador;
+let alarm;
+let timer;
+let atras;
+let interval;
+let stop=false;
 
 function Contador(props){
     return (
@@ -38,7 +44,7 @@ function Contador(props){
 }
 function Bonus(){
     return(
-        <div className="row w-25 mx-auto justify-content-center">
+        <div className="row w-25 mx-auto mt-2 justify-content-center">
             <div className="btn-group mr-2" role="group" aria-label="First group">
                 <button type="button" className="btn btn-secondary" onClick={()=>alarmFunction()}><i className="fa fa-bell"></i></button> 
                 <button type="button" className="btn btn-secondary" onClick={()=>resetFunction()}><i className="fas fa-clock"></i></button>
@@ -57,7 +63,7 @@ function Bonus(){
 }
 function Alarm(props) {
     return(
-         <div className="alert alert-danger w-50 text-center mx-auto" style={{visibility: (props.show?"visible":"hidden")}} role="alert">Tiempo!!!</div>
+         <div className="alert alert-danger w-25 text-center mx-auto mt-2" style={{visibility: (props.show?"visible":"hidden")}} role="alert">Tiempo!!!</div>
       )
 }
 
@@ -116,10 +122,5 @@ const alarmFunction=function(){
     resetFunction();
 }
 
-let contador;
-let alarm;
-let timer;
-let atras;
-let interval;
-let stop=false;
+
 resetFunction();
